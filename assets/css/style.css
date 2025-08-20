@@ -1,0 +1,90 @@
+body {
+    background-color: #F4EBD3;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}
+
+.navbar {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #000000;
+    background-color: #ffffff;
+    letter-spacing: 0.5px;
+    font-family: inherit; /* Uses body's font-family */
+}
+
+.padding, .padding2 {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.padding { margin-top: 5px; }
+.padding2 { margin-bottom: 5px; }
+
+.notifcolor {
+    color: #fcedb3;
+}
+
+.logo {
+    height: 100px;
+    width: 150px;
+    margin: 0 20px 20px 20px;
+}
+
+.color {
+    color: #ffde59;
+    width: 30px;
+    height: 20px;
+}
+
+.dropdown-header {
+    text-align: center;
+    margin: 10px;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.search-btn {
+    background-color: #ffde59;
+    border: none;
+    color: #000;
+}
+
+.search-btn:hover {
+    background-color: #ffd633;
+}
+
+.col-md-4 {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.logincolor2, .card-title, .registercolor, .forgotcolor {
+    color: #af4c0f;
+}
+
+.logincolor, .notifcolor, .profilecolor, .homecolor, .aboutcolor {
+    color: #af4c0f;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.loginbtn, .registerbtn, .forgotbtn, .orderbtn {
+    margin-top: 30px;
+    background-color: #ffde59;
+    background-position: center;
+    width: 150px;
+}
+
+.login, .forgot, .register {
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.cards {
+    width: 500px;
+    margin: 30px;
+}

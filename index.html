@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCanteen</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a href="index.html" class="nav-link active"><img src="assets/img/smartcanteen_logo.png" alt="SmartCanteen logo" class="logo"></a>
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+      <div class="navbar-nav padding">
+        <a href="index.html" class="nav-link homecolor">Home</a>
+        <a href="#" class="nav-link profilecolor">Profile</a>
+        <a href="#" class="nav-link aboutcolor">About</a>
+      </div>
+      <div class="navbar-nav position-relative">
+        <a href="#" class="nav-link" id="notifBell" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-bell-fill padding2 color"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="notifBell">
+          <h6 class="dropdown-header notifcolor">Notifications</h6>
+          <hr>
+        </div>
+        <a href="login.html" class="nav-link logincolor">Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div class="flex-grow-1">
+      <div class="input-group">
+        <input type="text" class="form-control search-input" placeholder="Search meals by name or ingredient">
+        <button type="button" class="btn btn-outline-secondary search-btn">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+    <div class="filter-div">
+      <select class="form-select filter-select">
+        <option selected disabled>Filter by Category</option>
+        <option value="breakfast">🍳 Breakfast</option>
+        <option value="platter">🍱 Platter</option>
+        <option value="burger">🍔 Burger</option>
+        <option value="drinks">🧋 Dessert/Drinks</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img src="assets/img/burger.png" class="card-img-top" alt="Burger">
+        <div class="card-body text-center">
+          <h5 class="card-title">Burger</h5>
+          <p class="card-text">Juicy beef patty with cheese, lettuce, and tomato served on a toasted bun.</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">🍽️ <strong>Price:</strong> ₱85</li>
+            <li class="list-group-item">⏰ <strong>Available:</strong> 9:00 AM – 2:00 PM</li>
+            <li class="list-group-item">✨ <strong>Add-ons:</strong> Cheese, Bacon, Egg</li>
+          </ul>
+          <a href="#" class="btn btn-warning orderbtn">Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img src="assets/img/chickwithrice.png" class="card-img-top" alt="Chicken with Rice">
+        <div class="card-body text-center">
+          <h5 class="card-title">Chicken with Rice</h5>
+          <p class="card-text">Savory chicken fillet served over steamed rice, paired with gravy or soy sauce and a side of veggies.</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">🍽️ <strong>Price:</strong> ₱70</li>
+            <li class="list-group-item">⏰ <strong>Available:</strong> 10:00 AM – 1:30 PM</li>
+            <li class="list-group-item">✨ <strong>Add-ons:</strong> Egg, Extra Gravy, Chili Garlic</li>
+          </ul>
+          <a href="#" class="btn btn-warning orderbtn">Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img src="assets/img/siomaiwithrice.png" class="card-img-top" alt="Siomai with Rice">
+        <div class="card-body text-center">
+          <h5 class="card-title">Siomai with Rice</h5>
+          <p class="card-text">Steamed chicken siomai served over hot rice, with soy sauce, calamansi, and chili garlic on the side.</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">🍽️ <strong>Price:</strong> ₱55</li>
+            <li class="list-group-item">⏰ <strong>Available:</strong> 10:00 AM – 1:30 PM</li>
+            <li class="list-group-item">✨ <strong>Add-ons:</strong> Extra Siomai, Egg, Chili Garlic</li>
+          </ul>
+          <a href="#" class="btn btn-warning orderbtn">Order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
