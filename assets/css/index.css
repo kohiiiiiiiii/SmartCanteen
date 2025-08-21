@@ -19,8 +19,12 @@ body {
     margin-right: 20px;
 }
 
-.padding { margin-top: 5px; }
-.padding2 { margin-bottom: 5px; }
+.padding { 
+  margin-top: 5px; 
+  }
+.padding2 { 
+  margin-bottom: 5px; 
+}
 
 .notifcolor {
     color: #fcedb3;
@@ -74,6 +78,7 @@ body {
 
 .loginbtn, .registerbtn, .forgotbtn, .orderbtn {
     margin-top: 30px;
+    padding: 10px 20px;
     background-color: #ffde59;
     background-position: center;
     width: 150px;
