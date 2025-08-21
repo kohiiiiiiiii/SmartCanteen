@@ -90,3 +90,40 @@ body {
 .icon-large {
     font-size: 1.8rem;
 }
+
+.loginbg {
+    background: linear-gradient(135deg, #f5f3f3, #ffffff);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    color: #af4c0f;
+    font-family: 'Poppins', sans-serif;
+}
+
+.registerbg {
+    background: linear-gradient(135deg, #fceabb, #fab22d);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    color: #af4c0f;
+    font-family: 'Poppins', sans-serif;
+}
+
+.loginbg,
+.registerbg {
+    transition: 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loginbg:hover {
+    background: linear-gradient(135deg, #f5f3f3, #ffffff);
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    color: #20201f;
+}
+
+.registerbg:hover {
+    background: linear-gradient(135deg, #fceabb, #fab22d);
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    color: #20201f;
+}
