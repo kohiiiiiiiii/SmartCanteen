@@ -70,7 +70,7 @@ body {
     color: #af4c0f;
 }
 
-.logincolor, .notifcolor, .profilecolor, .homecolor, .aboutcolor {
+.logincolor, .notifcolor, .profilecolor, .homecolor, .aboutcolor, .registercolorr {
     color: #af4c0f;
     font-weight: bold;
     font-size: 20px;
@@ -160,4 +160,8 @@ body {
 .flex-grow-1 {
     margin-top: 30px;
     margin-bottom: 20px;
+}
+
+.icon-large {
+    font-size: 1.8rem;
 }
