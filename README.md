@@ -7,6 +7,7 @@ SmartCanteen is a PHP-based web application designed to streamline food ordering
 👥 Group Members
 
 Kristabelle Ricsan Lapidez
+
 Louie Jay Enero
 
 🖼️ Sreenshots
