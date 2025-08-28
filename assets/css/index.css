@@ -3,54 +3,6 @@ body {
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 
-.navbar {
-    font-family: inherit;
-    padding: 20px;
-    font-size: 20px;
-    font-weight: normal;
-    color: #000000;
-    background-color: #ffffff;
-    letter-spacing: 0.5px;
-}
-
-.padding, .padding2 {
-    padding: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.padding { 
-  margin-top: 5px; 
-  }
-.padding2 { 
-  margin-bottom: 5px; 
-}
-
-.notifcolor {
-    color: #fcedb3;
-}
-
-.logo {
-    height: 100px;
-    width: 150px;
-    margin: 0 20px 20px 20px;
-}
-
-.color {
-    color: #ffde59;
-    width: 30px;
-    height: 20px;
-}
-
-.dropdown-header {
-    text-align: center;
-    margin: 10px;
-}
-
-.nav-item {
-    margin-right: 20px;
-}
-
 .search-btn {
     background-color: #ffde59;
     border: none;
@@ -59,33 +11,6 @@ body {
 
 .search-btn:hover {
     background-color: #ffd633;
-}
-
-.col-md-4 {
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.logincolor2, .card-title, .registercolor, .forgotcolor {
-    color: #af4c0f;
-}
-
-.logincolor, .notifcolor, .profilecolor, .homecolor, .aboutcolor, .registercolorr {
-    color: #af4c0f;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.loginbtn, .registerbtn, .forgotbtn, .orderbtn {
-    margin-top: 30px;
-    padding: 10px 20px;
-    background-color: #ffde59;
-    background-position: center;
-    width: 150px;
-}
-
-.login, .forgot, .register {
-    margin: 50px 0 80px 0;
 }
 
 .cards {
@@ -162,44 +87,13 @@ body {
     margin-bottom: 20px;
 }
 
-.icon-large {
-    font-size: 1.8rem;
+
+.fixed-list {
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-.loginbg {
-    background: linear-gradient(135deg, #f5f3f3, #ffffff);
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    color: #af4c0f;
-    font-family: 'Poppins', sans-serif;
-}
 
-.registerbg {
-    background: linear-gradient(135deg, #fceabb, #fab22d);
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    color: #af4c0f;
-    font-family: 'Poppins', sans-serif;
-}
-
-.loginbg,
-.registerbg {
-    transition: 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.loginbg:hover {
-    background: linear-gradient(135deg, #f5f3f3, #ffffff);
-    transform: scale(1.02);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    color: #20201f;
-}
-
-.registerbg:hover {
-    background: linear-gradient(135deg, #fceabb, #fab22d);
-    transform: scale(1.02);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    color: #20201f;
-}
 
