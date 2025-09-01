@@ -1,47 +1,52 @@
 <?php
 session_start();
 
+// ✅ connect to DB
+$conn = new mysqli("localhost", "root", "smartcanteen", "smart_canteen");
+
+// check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email    = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-    // ✅ connect to DB
-    $conn = new mysqli("localhost", "root", "", "your_database_name");
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // ✅ check if email exists
-    $sql = "SELECT id, first_name, last_name, password, role FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
+    // prepare query
+    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, role, password FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $first_name, $last_name, $user_email, $role, $hashed_password);
+        $stmt->fetch();
 
         // ✅ verify password
-        if (password_verify($password, $user['password'])) {
-            // store session
-            $_SESSION['user_id']   = $user['id'];
-            $_SESSION['user_name'] = $user['first_name'] . " " . $user['last_name'];
-            $_SESSION['role']      = $user['role'];
+        if (password_verify($password, $hashed_password)) {
+            // set session with full profile data
+            $_SESSION['user_id'] = $id;
+            $_SESSION['first_name'] = $first_name;
+            $_SESSION['last_name'] = $last_name;
+            $_SESSION['email'] = $user_email;
+            $_SESSION['role'] = $role;
 
-            echo "<h2>Welcome, " . htmlspecialchars($_SESSION['user_name']) . "!</h2>";
-            echo "<p>Role: " . htmlspecialchars($_SESSION['role']) . "</p>";
-            echo "<a href='logout.php'>Logout</a>";
+            // redirect to index.php
+             echo "<script>
+                    localStorage.setItem('first_name', '".addslashes($first_name)."');
+                    window.location.href='index.html';
+                  </script>";
+            exit();
         } else {
-            echo "<p style='color:red;'>Invalid password.</p>";
+            echo "<script>alert('Invalid password!'); window.location.href='login.html';</script>";
         }
     } else {
-        echo "<p style='color:red;'>No account found with that email.</p>";
+        echo "<script>alert('No account found with that email!'); window.location.href='login.html';</script>";
     }
 
     $stmt->close();
-    $conn->close();
-} else {
-    echo "Invalid request.";
 }
+$conn->close();
 ?>
