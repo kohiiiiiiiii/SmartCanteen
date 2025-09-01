@@ -33,11 +33,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $user_email;
             $_SESSION['role'] = $role;
 
-            // redirect to index.php
-             echo "<script>
-                    localStorage.setItem('first_name', '".addslashes($first_name)."');
-                    window.location.href='index.html';
-                  </script>";
+            // ✅ store first name in localStorage (for frontend welcome message)
+            echo "<script>
+            localStorage.setItem('first_name', '".addslashes($first_name)."');
+            if ('".$role."' === 'admin') {
+                window.location.href='admin/index.html';
+            } else if ('".$role."' === 'manager') {
+                window.location.href='manager/index.html';
+            } else {
+                window.location.href='customer/index.html';
+            }
+        </script>";
+
+
+            // ✅ redirect by role
+            if ($role === "admin") {
+                echo "<script>window.location.href='admin/index.html';</script>";
+            } elseif ($role === "manager") {
+                echo "<script>window.location.href='manager/index.html';</script>";
+            } else {
+                echo "<script>window.location.href='customer/index.html';</script>";
+            }
+
             exit();
         } else {
             echo "<script>alert('Invalid password!'); window.location.href='login.html';</script>";

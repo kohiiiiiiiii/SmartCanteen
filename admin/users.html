@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartCanteen - Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../assets/css/index_admin.css"> <!-- separate admin CSS -->
+</head>
+<body>
+
+<div class="sidebar">
+  <img src="../assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
+  <a href="index.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+  <a href="users.html"><i class="bi bi-people"></i> Manage Users</a>
+  <a href="menu.html"><i class="bi bi-journal-text"></i> Manage Menu</a>
+  <a href="orders.html"><i class="bi bi-receipt"></i> Orders</a>
+  <a href="../customer/index.html" class="logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <!-- Topbar -->
+  <div class="topbar d-flex justify-content-between align-items-center">
+    <h5>Manage Users</h5>
+    <div>
+      <i class="bi bi-bell-fill fs-4 text-secondary"></i>
+    </div>
+  </div>
+
+  <button class="btn btn-success mt-3 d-block mx-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
+    <i class="bi bi-person-plus"></i> Add User
+  </button>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
+  <div class="modal-dialog">
+    <form action="add_user.php" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">First Name</label>
+          <input type="text" name="first_name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Last Name</label>
+          <input type="text" name="last_name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Role</label>
+          <select name="role" class="form-select">
+            <option value="student">Student</option>
+            <option value="staff">Staff</option>
+            <option value="manager">Manager</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add User</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // ✅ Highlight active sidebar link
+  const currentPage = window.location.pathname.split("/").pop();
+  document.querySelectorAll(".sidebar a").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    }
+  });
+
+  // ✅ Load admin name from localStorage
+  const adminName = localStorage.getItem("first_name") || "Admin";
+  document.getElementById("adminName").textContent = adminName;
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

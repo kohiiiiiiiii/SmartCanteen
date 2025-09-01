@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCanteen | Profile</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="../assets/css/profile.css" />
+  <link rel="stylesheet" href="../assets/css/navbar.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+      <a href="index.html" class="nav-link active"><img src="../assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo"></a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between gap-3" id="navbarCollapse">
+        <div class="navbar-nav gap-5 w-100 padding">
+          <a href="index.html" class="nav-link homecolor">Home</a>
+          <a href="about.html" class="nav-link aboutcolor">About</a>
+        </div>
+        <div class="navbar-nav d-flex align-items-center gap-3">
+          <a href="#" class="nav-link" id="notifBell" data-bs-toggle="dropdown">
+            <i class="bi bi-bell-fill color icon-large"></i>
+          </a>
+        </div>
+      </div>
+  </div>
+</nav>
+
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card p-4 bg-light rounded shadow-sm">
+        <div class="text-center">
+          <img src="../assets/img/user_avatar.png" alt="User Avatar" class="rounded-circle mb-3 avatar"/>
+          <br>
+          <h3 class="text-brand d-inline-block me-2"  id="username"></h3>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+            <i class="bi bi-pencil-square text-warning fs-5"></i>
+          </a>
+          <p class="text-muted" id="role"></p>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="text-highlight">📧 Email</h5>
+            <p id="email"></p>
+            <h5 class="text-highlight">📍 Location</h5>
+            <p id="location"></p>
+          </div>
+          <div class="col-md-6">
+            <h5 class="text-highlight">📞 Contact Number</h5>
+            <p id="contact"></p>
+            <h5 class="text-highlight">📅 Joined</h5>
+            <p id="joined"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Profile elements
+  const usernameEl = document.getElementById("username");
+  const emailEl = document.getElementById("email");
+  const roleEl = document.getElementById("role");
+  const joinedEl = document.getElementById("joined");
+  const locationEl = document.getElementById("location");
+  const contactEl = document.getElementById("contact");
+
+  // Modal inputs
+  const editFirstName = document.getElementById("editFirstName");
+  const editLastName = document.getElementById("editLastName");
+  const editEmail = document.getElementById("editEmail");
+  const editLocation = document.getElementById("editLocation");
+  const editContact = document.getElementById("editContact");
+  const editForm = document.getElementById("editProfileForm");
+
+  // Load profile from localStorage
+  function loadProfile() {
+    const firstName = localStorage.getItem("first_name");
+    const lastName = localStorage.getItem("last_name");
+    const email = localStorage.getItem("email");
+    const role = localStorage.getItem("role");
+    const joined = localStorage.getItem("joined_date");
+    const location = localStorage.getItem("location");
+    const contact = localStorage.getItem("contact");
+
+    if (!firstName) {
+      window.location.href = "../login.html"; // not logged in
+      return;
+    }
+
+    usernameEl.textContent = `${firstName} ${lastName || ""}`;
+    emailEl.textContent = email || "Not provided";
+    roleEl.textContent = role || "Not provided";
+    joinedEl.textContent = joined || "Not provided";
+    locationEl.textContent = location || "Not provided";
+    contactEl.textContent = contact || "Not provided";
+
+    // Fill modal inputs
+    editFirstName.value = firstName;
+    editLastName.value = lastName || "";
+    editEmail.value = email || "";
+    editLocation.value = location || "";
+    editContact.value = contact || "";
+  }
+
+  loadProfile();
+
+  // Handle save changes
+  editForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Update localStorage
+    localStorage.setItem("first_name", editFirstName.value.trim());
+    localStorage.setItem("last_name", editLastName.value.trim());
+    localStorage.setItem("email", editEmail.value.trim());
+    localStorage.setItem("location", editLocation.value.trim());
+    localStorage.setItem("contact", editContact.value.trim());
+
+    // Reload profile section
+    loadProfile();
+
+    // Hide modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById("editProfileModal"));
+    modal.hide();
+
+    alert("✅ Profile updated successfully!");
+  });
+});
+</script>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Edit Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProfileForm">
+          <div class="mb-3">
+            <label for="editFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="editFirstName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="editLastName">
+          </div>
+          <div class="mb-3">
+            <label for="editEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="editLocation" class="form-label">Location</label>
+            <input type="text" class="form-control" id="editLocation">
+          </div>
+          <div class="mb-3">
+            <label for="editContact" class="form-label">Contact Number</label>
+            <input type="text" class="form-control" id="editContact">
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-warning">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

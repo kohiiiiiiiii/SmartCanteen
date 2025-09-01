@@ -1,12 +1,56 @@
+/* Navbar Styles */
 .navbar {
     font-size: 20px;
     font-weight: normal;
     padding: 20px;
-    color: #000000;
     background-color: #ffffff;
     letter-spacing: 0.5px;
-    font-family: inherit;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+/* Logo */
+.logo {
+    height: 80px;
+    width: 130px;
+    margin: 0 10px;
+}
+
+/* Nav links */
+.nav-item {
+    margin-right: 10px;
+}
+
+.nav-link {
+    color: #af4c0f;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffde59;
+}
+
+/* Shared theme colors */
+.logincolor, .notifcolor, .profilecolor, .homecolor, .aboutcolor {
+    color: #af4c0f;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Logout button (if used in navbar) */
+.logout {
+    border: 1px solid #ffde59;
+    color: #af4c0f;
+    transition: 0.3s;
+}
+
+.logout:hover {
+    background-color: #ffde59;
+    color: #20201f;
+}
+
 
 .logo {
     height: 80px;
@@ -16,11 +60,6 @@
 
 .nav-item {
     margin-right: 10px;
-}
-
-body {
-    background-color: #F4EBD3;
-    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 
 .padding, .padding2 {
