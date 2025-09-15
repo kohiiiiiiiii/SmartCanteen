@@ -1,0 +1,14 @@
+body {
+    background-color: #ffe9a9;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}
+
+.cards {
+    width: 500px;
+    margin: 30px;
+}
+
+.icon-large {
+    font-size: 1.8rem;
+}
+

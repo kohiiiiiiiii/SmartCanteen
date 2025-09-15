@@ -1,0 +1,40 @@
+body {
+    background-color: #ffe9a9;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}
+
+.profile-card {
+  background: linear-gradient(135deg, #fffaf0, #f4ebd3);
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.text-brand {
+  color: #af4c0f;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  font-weight: 600;
+}
+
+.text-highlight {
+  color: #f9a825;
+  font-weight: 600;
+}
+
+.avatar { 
+    width: 220px;
+    height: 220px;
+}
+
+.modal-content {
+  background: #fffaf0;
+  border: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.btn-warning {
+  font-weight: 600;
+}
