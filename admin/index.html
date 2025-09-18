@@ -16,12 +16,22 @@
   <a href="users.html"><i class="bi bi-people"></i> Manage Users</a>
   <a href="menu.html"><i class="bi bi-journal-text"></i> Manage Menu</a>
   <a href="orders.html"><i class="bi bi-receipt"></i> Orders</a>
-  <a href="../customer/index.html" class="logout"><i class="bi bi-box-arrow-right"></i> Go Home</a>
+
+  <!-- Profile Section (always at bottom now) -->
+  <div class="profile-bar d-flex justify-content-between align-items-center bg-light rounded shadow-sm">
+    <div class="d-flex align-items-center">
+      <img src="../assets/img/user_avatar.png" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+      <div>
+        <h6 class="mb-0"><span id="profileName"></span></h6>
+        <small class="text-muted" id="profileRole"></small>
+      </div>
+    </div>
+    <a href="../login.html" class="logout text-danger"><i class="bi bi-box-arrow-right"></i></a>
+  </div>
 </div>
 
 <!-- Content -->
 <div class="content">
-  <!-- Topbar -->
   <div class="topbar">
     <h5>Welcome back, <span id="adminName"></span></h5>
     <i class="bi bi-bell-fill fs-4 text-secondary"></i>
@@ -87,8 +97,17 @@
 </div>
 
 <script>
-  // Load admin name from session/localStorage
-  document.getElementById("adminName").textContent = localStorage.getItem("first_name") || "Admin";
+    // ✅ Save values from PHP session into localStorage (for UI only)
+    localStorage.setItem("first_name", "<?php echo addslashes($first_name); ?>");
+    localStorage.setItem("last_name", "<?php echo addslashes($last_name); ?>");
+    localStorage.setItem("role", "<?php echo addslashes($role); ?>");
+
+    // ✅ Display them
+    document.getElementById("userName").textContent = 
+        localStorage.getItem("first_name") + " " + localStorage.getItem("last_name");
+
+    document.getElementById("userRole").textContent = 
+        localStorage.getItem("role");
 </script>
 </body>
 </html>

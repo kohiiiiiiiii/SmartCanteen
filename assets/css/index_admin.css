@@ -4,28 +4,49 @@ body {
     }
      
 .sidebar {
-    width: 220px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #ffffff;
-    padding-top: 20px;
-    }
-    
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  padding-top: 20px;
+
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+}
+
 .sidebar a {
-    display: block;
-    padding: 12px 20px;
-    color: #292321;
-    text-decoration: none;
-    font-weight: 500;
-    }
-    
-.sidebar a:hover, .sidebar a.active {
-    background: #fff3cd;
-    border-left: 4px solid #212529;
-    }
-    
+  display: block;
+  padding: 12px 20px;
+  color: #292321;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar a:hover, 
+.sidebar a.active {
+  background: #fff3cd;
+  border-left: 4px solid #212529;
+}
+
+/* 🚫 Remove hover for logout */
+.sidebar a.logout:hover {
+  background: none;
+  border-left: none;
+}
+
+/* Push profile bar to the bottom */
+.profile-bar {
+  margin-top: auto;  /* moves it down */
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+
+.profile-bar img {
+  border: 2px solid #ccc;
+}
+
 .content {
     margin-left: 230px;
     padding: 20px;
@@ -67,3 +88,5 @@ body {
     border-radius: 15px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     }
+
+
