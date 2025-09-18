@@ -5,17 +5,30 @@
   <title>SmartCanteen - Admin Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="../assets/css/index_admin.css"> <!-- separate admin CSS -->
+  <link rel="stylesheet" href="../assets/css/index_admin.css">
+  <style>
+    /* Custom Button Styles */
+    .btn-dashboard {
+      background-color: #343a40; /* Dark dashboard theme */
+      color: #fff;
+      border: none;
+    }
+    .btn-dashboard:hover {
+      background-color: #23272b;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
 
+<!-- Sidebar -->
 <div class="sidebar">
   <img src="../assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
   <a href="index.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
-  <a href="users.html"><i class="bi bi-people"></i> Manage Users</a>
+  <a href="users.html" class="active"><i class="bi bi-people"></i> Manage Users</a>
   <a href="menu.html"><i class="bi bi-journal-text"></i> Manage Menu</a>
   <a href="orders.html"><i class="bi bi-receipt"></i> Orders</a>
-  <a href="../customer/index.html" class="logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+  <a href="../customer/index.html" class="logout"><i class="bi bi-box-arrow-right"></i> Go Home</a>
 </div>
 
 <!-- Content -->
@@ -28,14 +41,81 @@
     </div>
   </div>
 
-  <button class="btn btn-success mt-3 d-block mx-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">
+  <!-- User Table Layout -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table recentcard">
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example static rows -->
+        <tr>
+          <td>1</td>
+          <td>Juan Dela Cruz</td>
+          <td>juan@example.com</td>
+          <td>Student</td>
+          <td>2025-09-01</td>
+          <td>
+            <button class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#viewUserModal">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Maria Santos</td>
+          <td>maria@example.com</td>
+          <td>Manager</td>
+          <td>2025-09-02</td>
+          <td>
+            <button class="btn btn-success btn-sm me-1">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Carlos Reyes</td>
+          <td>carlos@example.com</td>
+          <td>Admin</td>
+          <td>2025-09-03</td>
+          <td>
+            <button class="btn btn-success btn-sm me-1">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add User Button -->
+  <button class="btn btn-warning mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
     <i class="bi bi-person-plus"></i> Add User
   </button>
+</div>
+
 
 <!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1">
   <div class="modal-dialog">
-    <form action="add_user.php" method="POST" class="modal-content">
+    <form class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add New User</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -43,23 +123,23 @@
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">First Name</label>
-          <input type="text" name="first_name" class="form-control" required>
+          <input type="text" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">Last Name</label>
-          <input type="text" name="last_name" class="form-control" required>
+          <input type="text" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">Email</label>
-          <input type="email" name="email" class="form-control" required>
+          <input type="email" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" required>
+          <input type="password" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">Role</label>
-          <select name="role" class="form-select">
+          <select class="form-select">
             <option value="student">Student</option>
             <option value="staff">Staff</option>
             <option value="manager">Manager</option>
@@ -69,25 +149,32 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Add User</button>
+        <button type="submit" class="btn btn-dashboard">Add User</button>
       </div>
     </form>
   </div>
 </div>
-
-<script>
-  // ✅ Highlight active sidebar link
-  const currentPage = window.location.pathname.split("/").pop();
-  document.querySelectorAll(".sidebar a").forEach(link => {
-    if (link.getAttribute("href") === currentPage) {
-      link.classList.add("active");
-    }
-  });
-
-  // ✅ Load admin name from localStorage
-  const adminName = localStorage.getItem("first_name") || "Admin";
-  document.getElementById("adminName").textContent = adminName;
-</script>
+<!-- View User Modal -->
+<div class="modal fade" id="viewUserModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">User Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>ID:</strong> <span id="viewUserId">1</span></p>
+        <p><strong>Full Name:</strong> <span id="viewUserName">Juan Dela Cruz</span></p>
+        <p><strong>Email:</strong> <span id="viewUserEmail">juan@example.com</span></p>
+        <p><strong>Role:</strong> <span id="viewUserRole">Student</span></p>
+        <p><strong>Created At:</strong> <span id="viewUserCreated">2025-09-01</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dashboard" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
