@@ -11,7 +11,7 @@ body {
   left: 0;
   background: #ffffff;
   padding-top: 20px;
-
+  justify-content: space-between;
   display: flex;
   flex-direction: column; /* stack items vertically */
 }
@@ -45,6 +45,17 @@ body {
 
 .profile-bar img {
   border: 2px solid #ccc;
+}
+
+.profileName {
+  white-space: nowrap;   
+  overflow: hidden;     
+  text-overflow: ellipsis;
+  max-width: 150px; 
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  font-weight: bold;
 }
 
 .content {
@@ -88,5 +99,3 @@ body {
     border-radius: 15px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     }
-
-

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../assets/css/index_admin.css"> 
 </head>
 <body>
-
+  
 <!-- Sidebar -->
 <div class="sidebar">
   <img src="../assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
@@ -20,7 +20,7 @@
   <!-- Profile Section (always at bottom now) -->
   <div class="profile-bar d-flex justify-content-between align-items-center bg-light rounded shadow-sm">
     <div class="d-flex align-items-center">
-      <img src="../assets/img/user_avatar.png" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+      <a href="profile.html"><img src="../assets/img/user_avatar.png" alt="Profile" class="rounded-circle me-3" width="50" height="50"></a>
       <div>
         <h6 class="mb-0"><span id="profileName"></span></h6>
         <small class="text-muted" id="profileRole"></small>
@@ -97,17 +97,22 @@
 </div>
 
 <script>
-    // ✅ Save values from PHP session into localStorage (for UI only)
-    localStorage.setItem("first_name", "<?php echo addslashes($first_name); ?>");
-    localStorage.setItem("last_name", "<?php echo addslashes($last_name); ?>");
-    localStorage.setItem("role", "<?php echo addslashes($role); ?>");
+  const firstName  = localStorage.getItem("first_name") || "";
+  const middleName = localStorage.getItem("middle_name") || "";
+  const lastName   = localStorage.getItem("last_name") || "";
+  const suffix     = localStorage.getItem("suffix") || "";
+  const role       = localStorage.getItem("role") || "Admin";
 
-    // ✅ Display them
-    document.getElementById("userName").textContent = 
-        localStorage.getItem("first_name") + " " + localStorage.getItem("last_name");
+  // Build full name (firstname + middlename + lastname + suffix)
+  const fullName = `${firstName}${middleName ? " " + middleName : ""} ${lastName}${suffix ? " " + suffix : ""}`.trim();
 
-    document.getElementById("userRole").textContent = 
-        localStorage.getItem("role");
+  // Topbar welcome (first name only for friendlier greeting)
+  document.getElementById("adminName").textContent = firstName || "Admin";
+
+  // Profile section (always full name + role)
+  document.getElementById("profileName").textContent = fullName;
+  document.getElementById("profileRole").textContent = role;
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -13,10 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // prepare query
-    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, role, password FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, role, password 
+                            FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
-
     $stmt->execute();
     $stmt->store_result();
 
@@ -24,38 +23,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($id, $first_name, $last_name, $user_email, $role, $hashed_password);
         $stmt->fetch();
 
-        // ✅ verify password
         if (password_verify($password, $hashed_password)) {
-            // set session with full profile data
-            $_SESSION['user_id'] = $id;
+            // ✅ store session
+            $_SESSION['user_id']    = $id;
             $_SESSION['first_name'] = $first_name;
-            $_SESSION['last_name'] = $last_name;
-            $_SESSION['email'] = $user_email;
-            $_SESSION['role'] = $role;
+            $_SESSION['last_name']  = $last_name;
+            $_SESSION['email']      = $user_email;
+            $_SESSION['role']       = $role;
 
-            // ✅ store first name in localStorage (for frontend welcome message)
-            echo "<script>
-            localStorage.setItem('first_name', '".addslashes($first_name)."');
-            if ('".$role."' === 'admin') {
-                window.location.href='admin/index.html';
-            } else if ('".$role."' === 'manager') {
-                window.location.href='manager/index.html';
-            } else {
-                window.location.href='customer/index.html';
-            }
-        </script>";
-
-
-            // ✅ redirect by role
+            // ✅ redirect based on role
             if ($role === "admin") {
-                echo "<script>window.location.href='admin/index.html';</script>";
+                header("Location: admin/index.html");
             } elseif ($role === "manager") {
-                echo "<script>window.location.href='manager/index.html';</script>";
+                header("Location: manager/index.html");
             } else {
-                echo "<script>window.location.href='customer/index.html';</script>";
+                header("Location: customer/index.html");
             }
-
-            exit();
+            exit;
         } else {
             echo "<script>alert('Invalid password!'); window.location.href='login.html';</script>";
         }
