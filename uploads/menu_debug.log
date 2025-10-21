@@ -1,0 +1,96 @@
+[2025-10-20 05:43:11] ---- updateMenuItem called ----
+[2025-10-20 05:43:11] POST keys: edit_item_id, current_image, edit_name, edit_category, edit_description, edit_price, edit_stock, edit_addon_name, edit_addon_price, edit_availability_start, edit_availability_end, update_menu
+[2025-10-20 05:43:11] edit_availability_start raw: 13:00
+[2025-10-20 05:43:11] edit_availability_end raw: 17:40
+[2025-10-20 05:43:11] FILES keys: edit_image
+[2025-10-20 05:43:11] FILES edit_image name: 
+[2025-10-20 05:43:11] Keeping current image: 1760931557_Tapsilog.webp
+[2025-10-20 05:43:11] Parsed edit availability_start => 13:00:00
+[2025-10-20 05:43:11] Parsed edit availability_end   => 17:40:00
+[2025-10-20 05:43:11] Deleted menu_addons for item_id=18
+[2025-10-20 05:43:11] Update successful for item_id=18
+[2025-10-20 05:43:11] ---- updateMenuItem end ----
+
+[2025-10-20 18:27:20] ---- addMenuItem called ----
+[2025-10-20 18:27:20] POST keys: name, category, description, price, stock, addon_name, addon_price, availability_start, availability_end, add_menu, created_by, created_at
+[2025-10-20 18:27:20] availability_start raw: 01:30
+[2025-10-20 18:27:20] availability_end raw: 05:00
+[2025-10-20 18:27:20] FILES keys: image
+[2025-10-20 18:27:20] FILES image name: Tapsilog.webp
+[2025-10-20 18:27:20] Uploaded image saved: 1760977640_Tapsilog.webp
+[2025-10-20 18:27:20] Parsed availability_start => 01:30:00
+[2025-10-20 18:27:20] Parsed availability_end   => 05:00:00
+[2025-10-20 18:27:20] Insert successful, id=19
+[2025-10-20 18:27:20] ---- addMenuItem end ----
+
+[2025-10-20 18:30:32] ---- addMenuItem called ----
+[2025-10-20 18:30:32] POST keys: name, category, description, price, stock, addon_name, addon_price, availability_start, availability_end, add_menu, created_by, created_at
+[2025-10-20 18:30:32] availability_start raw: 00:30
+[2025-10-20 18:30:32] availability_end raw: 06:30
+[2025-10-20 18:30:32] FILES keys: image
+[2025-10-20 18:30:32] FILES image name: Tapsilog.webp
+[2025-10-20 18:30:32] Uploaded image saved: 1760977832_Tapsilog.webp
+[2025-10-20 18:30:32] Parsed availability_start => 00:30:00
+[2025-10-20 18:30:32] Parsed availability_end   => 06:30:00
+[2025-10-20 18:30:32] Insert successful, id=20
+[2025-10-20 18:30:32] ---- addMenuItem end ----
+
+[2025-10-20 18:42:37] ---- addMenuItem called ----
+[2025-10-20 18:42:37] POST keys: name, category, description, price, stock, addon_name, addon_price, availability_start, availability_end, add_menu, created_by, created_at
+[2025-10-20 18:42:37] availability_start raw: 00:42
+[2025-10-20 18:42:37] availability_end raw: 00:42
+[2025-10-20 18:42:37] FILES keys: image
+[2025-10-20 18:42:37] FILES image name: Tapsilog.webp
+[2025-10-20 18:42:37] Uploaded image saved: 1760978557_Tapsilog.webp
+[2025-10-20 18:42:37] Parsed availability_start => 00:42:00
+[2025-10-20 18:42:37] Parsed availability_end   => 00:42:00
+[2025-10-20 18:42:37] Insert successful, id=21
+[2025-10-20 18:42:37] ---- addMenuItem end ----
+
+[2025-10-21 00:18:27] ---- addMenuItem called ----
+[2025-10-21 00:18:27] POST keys: name, category, description, price, stock, addon_name, addon_price, availability_start, availability_end, add_menu, created_by, created_at
+[2025-10-21 00:18:27] availability_start raw: 06:18
+[2025-10-21 00:18:27] availability_end raw: 12:18
+[2025-10-21 00:18:27] FILES keys: image
+[2025-10-21 00:18:27] FILES image name: Tapsilog.webp
+[2025-10-21 00:18:27] Uploaded image saved: 1760998707_Tapsilog.webp
+[2025-10-21 00:18:27] Parsed availability_start => 06:18:00
+[2025-10-21 00:18:27] Parsed availability_end   => 12:18:00
+[2025-10-21 00:18:27] Prepare failed: Unknown column 'status' in 'field list'
+[2025-10-21 00:19:44] ---- addMenuItem called ----
+[2025-10-21 00:19:44] POST keys: name, category, description, price, stock, addon_name, addon_price, availability_start, availability_end, add_menu, created_by, created_at
+[2025-10-21 00:19:44] availability_start raw: 06:19
+[2025-10-21 00:19:44] availability_end raw: 10:19
+[2025-10-21 00:19:44] FILES keys: image
+[2025-10-21 00:19:44] FILES image name: Tapsilog.webp
+[2025-10-21 00:19:44] Uploaded image saved: 1760998784_Tapsilog.webp
+[2025-10-21 00:19:44] Parsed availability_start => 06:19:00
+[2025-10-21 00:19:44] Parsed availability_end   => 10:19:00
+[2025-10-21 00:19:44] Prepare failed: Unknown column 'status' in 'field list'
+[2025-10-21 00:20:17] ---- addMenuItem called ----
+[2025-10-21 00:20:17] POST keys: name, category, description, price, stock, addon_name, addon_price, availability_start, availability_end, add_menu, created_by, created_at
+[2025-10-21 00:20:17] availability_start raw: 06:20
+[2025-10-21 00:20:17] availability_end raw: 10:20
+[2025-10-21 00:20:17] FILES keys: image
+[2025-10-21 00:20:17] FILES image name: Tapsilog.webp
+[2025-10-21 00:20:17] Uploaded image saved: 1760998817_Tapsilog.webp
+[2025-10-21 00:20:17] Parsed availability_start => 06:20:00
+[2025-10-21 00:20:17] Parsed availability_end   => 10:20:00
+[2025-10-21 00:20:17] Prepare failed: Unknown column 'status' in 'field list'
+[2025-10-21 01:00:10] ---- addMenuItem called ----
+[2025-10-21 01:00:10] Uploaded image saved: 1761001210_Tapsilog.webp
+[2025-10-21 01:00:10] ---- addMenuItem end ----
+[2025-10-21 01:01:20] ---- addMenuItem called ----
+[2025-10-21 01:01:20] Uploaded image saved: 1761001280_Tapsilog.webp
+[2025-10-21 01:01:20] ---- addMenuItem end ----
+[2025-10-21 01:02:48] ---- addMenuItem called ----
+[2025-10-21 01:02:48] Uploaded image saved: 1761001368_Tapsilog.webp
+[2025-10-21 01:02:48] ---- addMenuItem end ----
+[2025-10-21 01:19:08] ---- addMenuItem called ----
+[2025-10-21 01:19:08] Uploaded image saved: 1761002348_Tapsilog.webp
+[2025-10-21 01:19:08] Add menu item successful, id=26
+[2025-10-21 01:19:08] ---- addMenuItem end ----
+[2025-10-21 02:10:37] ---- addMenuItem called ----
+[2025-10-21 02:10:37] Uploaded image saved: 1761005437_Tapsilog.webp
+[2025-10-21 02:10:37] Add menu item successful, id=27
+[2025-10-21 02:10:37] ---- addMenuItem end ----

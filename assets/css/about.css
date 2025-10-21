@@ -1,0 +1,22 @@
+body {
+    background-color: #ffe9a9;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}
+
+.textcolor {
+    color: #af4c0f;
+    font-size: 25px;
+}
+
+.size {
+    font-size: 15px;
+    padding-right: 50px;
+    padding-left: 50px;
+    word-spacing: 10px;
+}
+
+.logo1 {
+  max-height: 300px;
+  max-width: 500px;
+}
+
