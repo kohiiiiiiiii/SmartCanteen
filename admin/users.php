@@ -145,6 +145,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_user'])) {
     </div>
   </div>
 
+  <div class="row mb-3 g-2 p-2">
+    <div class="col-md-6">
+        <input type="text" id="menuSearchInput" class="form-control" placeholder="Search menu by name...">
+    </div>
+    <div class="col-md-6">
+        <select id="menuCategoryFilter" class="form-select">
+            <option value="all">All Categories</option>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="Student">Student</option>
+            <option value="Staff">Staff</option>
+        </select>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center p-4">
+      <h4 class="text-dark">User List</h4>
+      <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <i class="bi bi-person-plus"></i> Add User
+      </button>
+    </div>
   <!-- User Table Layout -->
   <div class="table-responsive">
     <table class="table table-striped table-hover align-middle">
@@ -224,11 +246,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_user'])) {
       </tbody>
     </table>
   </div>
-
-  <!-- Add User Button -->
-  <button class="btn btn-warning mt-3 mb-3 mx-auto d-block" data-bs-toggle="modal" data-bs-target="#addUserModal">
-    <i class="bi bi-person-plus"></i> Add User
-  </button>
 </div>
 
 <!-- Add User Modal -->
@@ -279,8 +296,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_user'])) {
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" name="add_user" class="btn btn-dashboard">Add User</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" name="add_user" class="btn btn-success">Add User</button>
       </div>
     </form>
   </div>
@@ -331,8 +348,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_user'])) {
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" name="update_user" class="btn btn-dashboard">Save Changes</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" name="update_user" class="btn btn-success">Save Changes</button>
       </div>
     </form>
   </div>
@@ -389,6 +406,30 @@ function editUser(id, firstName, middle_name, lastName, suffix, email, role, con
   document.getElementById("editRole").value = role;
   document.getElementById("editContact").value = contact || "";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById('menuSearchInput');
+    const categoryFilter = document.getElementById('menuCategoryFilter');
+    const tableRows = document.querySelectorAll('table tbody tr');
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase();
+        const category = categoryFilter.value;
+
+        tableRows.forEach(row => {
+            const name = row.cells[2].textContent.toLowerCase(); // Name column
+            const rowCategory = row.cells[3].textContent;        // Category column
+
+            const matchesName = name.includes(query);
+            const matchesCategory = category === 'all' || rowCategory === category;
+
+            row.style.display = (matchesName && matchesCategory) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    categoryFilter.addEventListener('change', filterTable);
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

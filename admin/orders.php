@@ -69,13 +69,29 @@ $orders = getAllOrders($conn);
 <!-- Content -->
 <div class="content">
   <div class="topbar">
-    <h5>Welcome back, <span id="userName"><?= htmlspecialchars($firstName) ?></span></h5>
+    <h5>Manage Orders</h5>
     <i class="bi bi-bell-fill fs-4 text-light"></i>
   </div>
 
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="text-white">Orders List</h4>
+  <div class="row mb-3 g-2 p-2">
+    <div class="col-md-6">
+        <input type="text" id="menuSearchInput" class="form-control" placeholder="Search menu by name...">
+    </div>
+    <div class="col-md-6">
+        <select id="menuCategoryFilter" class="form-select">
+            <option value="all">All Categories</option>
+            <option value="Pending">Pending</option>
+            <option value="Preparing">Preparing</option>
+            <option value="Ready">Ready</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </div>
+</div>
+
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center p-4">
+      <h4 class="text-dark">Orders List</h4>
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOrderModal">
         <i class="bi bi-plus-circle"></i> Add Order
       </button>
@@ -83,7 +99,7 @@ $orders = getAllOrders($conn);
 
     <!-- ✅ Updated Table Section -->
     <div class="table-responsive">
-      <table class="table table-bordered text-center align-middle" style="background-color: #fff; border-radius: 10px; overflow: hidden;">
+      <table class="table table-bordered text-center align-middle" style="background-color: #fff; border-radius: 10px;">
         <thead class="table-warning">
           <tr>
             <th>ID</th>
@@ -172,6 +188,31 @@ function openEditModal(id, user, pickup, time, total, status) {
   document.getElementById('edit_status').value = status;
   new bootstrap.Modal(document.getElementById('editModal')).show();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById('menuSearchInput');
+    const categoryFilter = document.getElementById('menuCategoryFilter');
+    const tableRows = document.querySelectorAll('table tbody tr');
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase();
+        const category = categoryFilter.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const customerName = row.cells[1].textContent.toLowerCase().trim(); // Customer column
+            const status = row.cells[4].textContent.toLowerCase().trim();       // Status column
+
+            const matchesName = customerName.includes(query);
+            const matchesCategory = category === 'all' || status === category;
+
+            row.style.display = (matchesName && matchesCategory) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    categoryFilter.addEventListener('change', filterTable);
+});
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

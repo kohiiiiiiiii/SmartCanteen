@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" name="add_order" class="btn btn-success">Add</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+      <button type="submit" name="add_order" class="btn btn-success">Add</button> 
       </div>
     </form>
   </div>
@@ -76,8 +76,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" name="update_order" class="btn btn-primary">Save Changes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" name="update_order" class="btn btn-success">Save Changes</button>
       </div>
     </form>
   </div>

@@ -105,6 +105,29 @@ $menuItems = getMenuItems($conn);
     <i class="bi bi-bell-fill fs-4 text-light"></i>
   </div>
 
+  <div class="row mb-3 g-2 p-2">
+    <div class="col-md-6">
+        <input type="text" id="menuSearchInput" class="form-control" placeholder="Search menu by name...">
+    </div>
+    <div class="col-md-6">
+        <select id="menuCategoryFilter" class="form-select">
+            <option value="all">All Categories</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Beverages">Beverages</option>
+        </select>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center p-4">
+    <h4 class="text-dark">Menu List</h4>  
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMenuModal">
+        <i class="bi bi-plus-circle"></i> Add Menu Item
+      </button>
+    </div>
+
   <div class="table-responsive">
     <table class="table table-striped table-hover align-middle">
       <thead class="table recentcard">
@@ -181,10 +204,6 @@ $menuItems = getMenuItems($conn);
       </tbody>
     </table>
   </div>
-
-  <button class="btn btn-success mt-3 mb-3 mx-auto d-block" data-bs-toggle="modal" data-bs-target="#addMenuModal">
-    <i class="bi bi-plus-circle"></i> Add Menu Item
-  </button>
 </div>
 
 <!-- Add Menu Modal -->
@@ -278,8 +297,8 @@ $menuItems = getMenuItems($conn);
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" name="update_menu" class="btn btn-dashboard">Save Changes</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" name="update_menu" class="btn btn-success">Save Changes</button>
       </div>
     </form>
   </div>
@@ -371,6 +390,31 @@ function editMenu(id, name, description, category, price, stock, availability_st
         })
         .catch(() => createAddonRow('editAddonWrapper'));
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById('menuSearchInput');
+    const categoryFilter = document.getElementById('menuCategoryFilter');
+    const tableRows = document.querySelectorAll('table tbody tr');
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase();
+        const category = categoryFilter.value;
+
+        tableRows.forEach(row => {
+            const name = row.cells[2].textContent.toLowerCase(); // Name column
+            const rowCategory = row.cells[3].textContent;        // Category column
+
+            const matchesName = name.includes(query);
+            const matchesCategory = category === 'all' || rowCategory === category;
+
+            row.style.display = (matchesName && matchesCategory) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    categoryFilter.addEventListener('change', filterTable);
+});
+
 </script> 
 
 

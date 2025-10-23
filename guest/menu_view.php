@@ -2,15 +2,11 @@
 session_start();
 include '../db.connect.php';
 
-// ✅ Fetch menu items (only in-stock and within time)
+// ✅ Current time (not strictly needed now, but kept for future use)
 $currentTime = date('H:i:s');
-$query = "
-    SELECT * FROM menu
-    WHERE stock > 0
-      AND (availability_start IS NULL OR availability_start <= '$currentTime')
-      AND (availability_end IS NULL OR availability_end >= '$currentTime')
-    ORDER BY created_at DESC
-";
+
+// ✅ Fetch all menu items regardless of stock/time
+$query = "SELECT * FROM menu ORDER BY created_at DESC";
 $result = $conn->query($query);
 if ($result === false) die('Error fetching menu: ' . $conn->error);
 ?>
@@ -26,7 +22,7 @@ if ($result === false) die('Error fetching menu: ' . $conn->error);
 </head>
 <body>
 
-<!-- ✅ Sidebar (identical to About page) -->
+<!-- Sidebar -->
 <div class="sidebar">
   <img src="../assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
 
@@ -48,7 +44,7 @@ if ($result === false) die('Error fetching menu: ' . $conn->error);
   </div>
 </div>
 
-<!-- ✅ Main Content -->
+<!-- Main Content -->
 <div class="content">
   <div class="container my-5">
     <div class="row justify-content-center">
@@ -66,8 +62,7 @@ if ($result === false) die('Error fetching menu: ' . $conn->error);
                   <div class="card-body text-center">
                     <h5 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h5>
                     <p class="text-warning fw-bold">₱<?php echo number_format($row['price'], 2); ?></p>
-                    <!-- ✅ Clickable button that navigates to login -->
-                    <a href="../login.php" class="btn btn-secondary w-100">Login to Order</a>
+                    <a href="../login.php" class="btn btn-success w-100">Order</a>
                   </div>
                 </div>
               </div>

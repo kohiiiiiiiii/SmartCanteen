@@ -3,13 +3,13 @@ session_start();
 include '../db.connect.php';
 include __DIR__ . '/../includes/order_functions.php'; // shared functions
 
-// Allow both Admin and Manager
+// ✅ Allow both Admin and Manager
 if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['Admin', 'Manager'])) {
     header("Location: ../login.php");
     exit();
 }
 
-// Fetch user info
+// ✅ Fetch user info
 $firstName  = $_SESSION['first_name'] ?? '';
 $middleName = $_SESSION['middle_name'] ?? '';
 $lastName   = $_SESSION['last_name'] ?? '';
@@ -18,15 +18,7 @@ $role       = $_SESSION['role'] ?? 'Manager';
 $fullName   = trim($firstName . ($middleName ? " $middleName" : "") . " $lastName" . ($suffix ? " $suffix" : ""));
 $currentPage = basename($_SERVER['PHP_SELF']);
 
-// ✅ Mark as Completed
-if (isset($_GET['complete'])) {
-    $orderId = intval($_GET['complete']);
-    $conn->query("UPDATE orders SET status = 'Completed' WHERE order_id = $orderId");
-    header("Location: orders.php");
-    exit;
-}
-
-// Fetch all orders
+// ✅ Fetch all orders
 $orders = getAllOrders($conn);
 ?>
 
@@ -48,6 +40,9 @@ $orders = getAllOrders($conn);
   <div class="links">
     <a href="index.php" class="<?= $currentPage == 'index.php' ? 'active' : '' ?>">
       <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+    <a href="users.php" class="<?= $currentPage == 'users.php' ? 'active' : '' ?>">
+      <i class="bi bi-people"></i> Manage Users
     </a>
     <a href="menu.php" class="<?= $currentPage == 'menu.php' ? 'active' : '' ?>">
       <i class="bi bi-journal-text"></i> Manage Menu
@@ -74,20 +69,37 @@ $orders = getAllOrders($conn);
 <!-- Content -->
 <div class="content">
   <div class="topbar">
-    <h5>Welcome back, <span id="userName"><?= htmlspecialchars($firstName) ?></span></h5>
+    <h5>Manage Orders</h5>
     <i class="bi bi-bell-fill fs-4 text-light"></i>
   </div>
 
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="text-white">Orders List</h4>
+  <div class="row mb-3 g-2 p-2">
+    <div class="col-md-6">
+        <input type="text" id="menuSearchInput" class="form-control" placeholder="Search menu by name...">
+    </div>
+    <div class="col-md-6">
+        <select id="menuCategoryFilter" class="form-select">
+            <option value="all">All Categories</option>
+            <option value="Pending">Pending</option>
+            <option value="Preparing">Preparing</option>
+            <option value="Ready">Ready</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </div>
+</div>
+
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center p-4">
+      <h4 class="text-dark">Orders List</h4>
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOrderModal">
         <i class="bi bi-plus-circle"></i> Add Order
       </button>
     </div>
 
+    <!-- ✅ Updated Table Section -->
     <div class="table-responsive">
-      <table class="table table-striped table-bordered align-middle">
+      <table class="table table-bordered text-center align-middle" style="background-color: #fff; border-radius: 10px;">
         <thead class="table-warning">
           <tr>
             <th>ID</th>
@@ -110,25 +122,29 @@ $orders = getAllOrders($conn);
                 <td><?= ucfirst($order['pickup_option']) ?></td>
                 <td>
                   <?php if ($order['status'] === 'Pending'): ?>
-                    <span class="badge bg-warning text-dark">Pending</span>
+                    <span class="badge rounded-pill text-dark px-3 py-2" style="background-color: #f9d342;">Pending</span>
                   <?php elseif ($order['status'] === 'Completed'): ?>
-                    <span class="badge bg-success">Completed</span>
+                    <span class="badge rounded-pill text-white px-3 py-2" style="background-color: #28a745;">Completed</span>
                   <?php else: ?>
-                    <span class="badge bg-secondary"><?= htmlspecialchars($order['status']) ?></span>
+                    <span class="badge bg-secondary rounded-pill"><?= htmlspecialchars($order['status']) ?></span>
                   <?php endif; ?>
                 </td>
-                <td><?= htmlspecialchars($order['scheduled_time']) ?></td>
-                <td><?= htmlspecialchars($order['created_at']) ?></td>
-                <td class="text-center">
-                  <!-- ✅ Mark as Completed button -->
-                  <?php if ($order['status'] === 'Pending'): ?>
-                    <a href="?complete=<?= $order['order_id'] ?>" class="btn btn-sm btn-success mb-1">
-                      <i class="bi bi-check-circle"></i>
+                <td><?= $order['scheduled_time'] ?></td>
+                <td><?= $order['created_at'] ?></td>
+                <td>
+                  <!-- ✅ Mark as Completed -->
+                  <?php if ($order['status'] !== 'Completed'): ?>
+                    <a href="../includes/order_functions.php?complete=<?= $order['order_id'] ?>" 
+                       class="btn btn-success btn-sm me-1"
+                       title="Mark as Completed"
+                       onclick="return confirm('Mark this order as Completed?')">
+                      <i class="bi bi-check-lg"></i>
                     </a>
                   <?php endif; ?>
 
-                  <!-- ✏️ Edit button -->
-                  <button class="btn btn-sm btn-primary mb-1"
+                  <!-- Edit -->
+                  <button class="btn btn-primary btn-sm me-1"
+                    title="Edit"
                     onclick="openEditModal(
                       <?= $order['order_id'] ?>,
                       <?= $order['user_id'] ?>,
@@ -137,13 +153,13 @@ $orders = getAllOrders($conn);
                       <?= $order['total_amount'] ?>,
                       '<?= $order['status'] ?>'
                     )">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil"></i>
                   </button>
 
-                  <!-- 🗑️ Delete -->
+                  <!-- Delete -->
                   <form action="../includes/order_functions.php" method="POST" class="d-inline">
                     <input type="hidden" name="order_id" value="<?= $order['order_id'] ?>">
-                    <button type="submit" name="delete_order" class="btn btn-sm btn-danger" onclick="return confirm('Delete this order?')">
+                    <button type="submit" name="delete_order" class="btn btn-danger btn-sm" title="Delete" onclick="return confirm('Delete this order?')">
                       <i class="bi bi-trash"></i>
                     </button>
                   </form>
@@ -172,6 +188,31 @@ function openEditModal(id, user, pickup, time, total, status) {
   document.getElementById('edit_status').value = status;
   new bootstrap.Modal(document.getElementById('editModal')).show();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById('menuSearchInput');
+    const categoryFilter = document.getElementById('menuCategoryFilter');
+    const tableRows = document.querySelectorAll('table tbody tr');
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase();
+        const category = categoryFilter.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const customerName = row.cells[1].textContent.toLowerCase().trim(); // Customer column
+            const status = row.cells[4].textContent.toLowerCase().trim();       // Status column
+
+            const matchesName = customerName.includes(query);
+            const matchesCategory = category === 'all' || status === category;
+
+            row.style.display = (matchesName && matchesCategory) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    categoryFilter.addEventListener('change', filterTable);
+});
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

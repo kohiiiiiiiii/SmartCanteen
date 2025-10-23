@@ -23,6 +23,11 @@ foreach ($cart_items as $i => $item) {
         $cart_items[$i]['addons'] = $addons;
         $_SESSION['cart'][$i]['addons'] = $addons;
     }
+
+    // ✅ Store correct image path relative to cart.php
+    $cart_items[$i]['image_path'] = !empty($item['image']) && file_exists('../uploads/' . $item['image'])
+    ? '../uploads/' . $item['image']
+    : '../assets/img/no-image.png';
 }
 ?>
 <!DOCTYPE html>
@@ -45,7 +50,9 @@ foreach ($cart_items as $i => $item) {
     </div>
     <div class="profile-bar d-flex align-items-center justify-content-between p-3 border-top">
         <div class="d-flex align-items-center">
-            <img src="../assets/img/user_avatar.png" alt="Profile" class="rounded-circle" width="50" height="50">
+            <a href="profile.php" class="profile-link me-3">
+                <img src="../assets/img/user_avatar.png" alt="Profile" class="rounded-circle" width="50" height="50">
+            </a>
             <div>
                 <h6 class="mb-0"><?= htmlspecialchars($first_name) ?></h6>
                 <small class="text-muted">Customer</small>
@@ -61,7 +68,7 @@ foreach ($cart_items as $i => $item) {
 <div class="content py-4 px-3">
     <div class="topbar d-flex justify-content-between align-items-center mb-4">
         <h5 class="mb-0">🛍 My Cart</h5>
-        <a href="index.php" class="btn btn-secondary">← Back to Menu</a>
+        <a href="index.php" class="btn btn-warning">← Back to Menu</a>
     </div>
 
     <div class="row">
@@ -70,35 +77,37 @@ foreach ($cart_items as $i => $item) {
                 <?php if (!empty($cart_items)): ?>
                     <?php foreach ($cart_items as $index => $item): ?>
                         <?php
-                        $item_total = 0;
-                        $unit_items = $item['items'] ?? [];
-                        if (!empty($unit_items)) {
-                            foreach ($unit_items as $unit) {
+                        $item_total = $item['price'] * ($item['quantity'] ?? 1);
+
+                        // Add-ons price
+                        if (!empty($item['items'])) {
+                            $item_total = 0;
+                            foreach ($item['items'] as $unit) {
                                 $unit_price = $item['price'];
                                 if (!empty($unit['selected_addons'])) {
                                     foreach ($unit['selected_addons'] as $addon) {
                                         $parts = explode("|", $addon);
-                                        $addon_price = isset($parts[1]) ? (float)$parts[1] : 0;
-                                        $unit_price += $addon_price;
+                                        $unit_price += isset($parts[1]) ? (float)$parts[1] : 0;
                                     }
                                 }
                                 $item_total += $unit_price;
                             }
-                        } else {
-                            $item_total = $item['price'] * $item['quantity'];
                         }
                         ?>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="d-flex align-items-center">
-                                <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="me-3" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                                <img src="<?= htmlspecialchars($item['image_path']) ?>" 
+                                     alt="<?= htmlspecialchars($item['name']) ?>" 
+                                     class="me-3" 
+                                     style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
                                 <div>
                                     <h6 class="mb-1"><?= htmlspecialchars($item['name']) ?></h6>
-                                    <?php if (!empty($unit_items)): ?>
-                                        <?php foreach ($unit_items as $u_i => $u_item): ?>
+                                    <?php if (!empty($item['items'])): ?>
+                                        <?php foreach ($item['items'] as $u_i => $unit): ?>
                                             <small class="text-muted d-block">
                                                 <strong>#<?= $u_i + 1 ?>:</strong>
-                                                <?= !empty($u_item['selected_addons'])
-                                                    ? implode(", ", array_map(fn($a) => explode("|", $a)[0], $u_item['selected_addons']))
+                                                <?= !empty($unit['selected_addons'])
+                                                    ? implode(", ", array_map(fn($a) => explode("|", $a)[0], $unit['selected_addons']))
                                                     : "No add-ons" ?>
                                             </small>
                                         <?php endforeach; ?>
@@ -134,7 +143,7 @@ foreach ($cart_items as $i => $item) {
             </ul>
         </div>
 
-        <!-- 🧾 Order Summary -->
+        <!-- Order Summary -->
         <div class="col-lg-4">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -154,7 +163,7 @@ foreach ($cart_items as $i => $item) {
                                 $subtotal += $unit_total;
                             }
                         } else {
-                            $subtotal += $item['price'] * $item['quantity'];
+                            $subtotal += $item['price'] * ($item['quantity'] ?? 1);
                         }
                     }
                     $service_fee = 5;
@@ -173,7 +182,7 @@ foreach ($cart_items as $i => $item) {
     </div>
 </div>
 
-<!-- 🟢 Edit Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -217,8 +226,7 @@ function openEditModal(index, item) {
     if (item.addons && item.addons.length > 0) {
       for (let q = 1; q <= quantity; q++) {
         const selected = (item.items && item.items[q - 1]?.selected_addons) || [];
-        let html = `<div class='border rounded p-2 mb-2 bg-light'>
-                      <strong>Item #${q}</strong>`;
+        let html = `<div class='border rounded p-2 mb-2 bg-light'><strong>Item #${q}</strong>`;
         item.addons.forEach(addon => {
           const [name, price] = addon.split('|');
           const checked = selected.some(a => a.split('|')[0] === name);
@@ -237,8 +245,6 @@ function openEditModal(index, item) {
   }
 
   renderAddons();
-
-  // 🟢 Re-render when quantity changes
   qtyInput.oninput = renderAddons;
 }
 </script>

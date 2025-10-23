@@ -26,9 +26,8 @@ if (isset($_POST['add_order'])) {
     redirectBack();
 }
 
-/* =========================================
-   ✏️ UPDATE ORDER
-   ========================================= */
+//UPDATE ORDER
+
 if (isset($_POST['update_order'])) {
     $order_id = $_POST['order_id'];
     $user_id = $_POST['user_id'];
@@ -49,9 +48,8 @@ if (isset($_POST['update_order'])) {
     redirectBack();
 }
 
-/* =========================================
-   🟢 MARK AS COMPLETED (GET method support)
-   ========================================= */
+// MARK AS COMPLETED (GET method support)
+
 if (isset($_GET['complete'])) {
     $order_id = intval($_GET['complete']);
 
@@ -89,9 +87,8 @@ if (isset($_GET['complete'])) {
     redirectBack();
 }
 
-/* =========================================
-   🗑️ DELETE ORDER
-   ========================================= */
+// DELETE ORDER
+
 if (isset($_POST['delete_order'])) {
     $order_id = $_POST['order_id'];
 
@@ -111,9 +108,8 @@ if (isset($_POST['delete_order'])) {
     redirectBack();
 }
 
-/* =========================================
-   📋 GET ALL ORDERS
-   ========================================= */
+// GET ALL ORDERS
+   
 function getAllOrders($conn) {
     $sql = "
         SELECT 
@@ -127,9 +123,7 @@ function getAllOrders($conn) {
     return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 }
 
-/* =========================================
-   🔁 REDIRECT BACK TO THE RIGHT DASHBOARD
-   ========================================= */
+// REDIRECT BACK TO THE RIGHT DASHBOARD
 function redirectBack() {
     $role = $_SESSION['role'] ?? '';
 
