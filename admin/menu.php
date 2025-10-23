@@ -1,7 +1,12 @@
 <?php
 // ✅ Allow session to work across all folders
-ini_set('session.cookie_path', '/');
 session_start();
+
+// ✅ Access control
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
+    header("Location: ../login.php");
+    exit();
+}
 include '../db.connect.php';
 include __DIR__ . '/../includes/menu_functions.php';
 

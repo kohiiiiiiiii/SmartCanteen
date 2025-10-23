@@ -39,106 +39,154 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartCanteen</title>
+  <title>SmartCanteen | Register</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/about.css">
+  <style>
+    /* Match login card layout */
+    .register-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 70px);
+      padding: 2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      max-width: 450px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img.logo {
+      width: 90px;
+      margin-bottom: 1rem;
+    }
+
+    .btn-register {
+      background-color: #ffb703;
+      border: none;
+      color: #1e1e1e;
+      font-weight: bold;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-register:hover {
+      background-color: #e0a800;
+      transform: scale(1.02);
+    }
+  </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-      login.php
-      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-        <div class="navbar-nav gap-5 w-100 padding">
-          <a href="customer/index.php" class="nav-link homecolor">Home</a>
-          <a href="customer/about.php" class="nav-link aboutcolor">About</a>
-        </div>
-          <div class="navbar-nav position-relative d-flex align-items-center gap-3">
-          <a href="login.php" class="nav-link logincolor loginbg">Login</a>
-          <a href="register.php" class="nav-link logincolor registerbg">Register</a>
-        </div>
-      </div>
+
+<!-- Sidebar (same as login) -->
+<div class="sidebar">
+  <img src="assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
+
+  <div class="links">
+    <a href="guest/menu_view.php"><i class="bi bi-house-door"></i> Home</a>
+    <a href="guest/about.php"><i class="bi bi-info-circle"></i> About</a>
+    <a href="login.php"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    <a href="register.php" class="active"><i class="bi bi-person-plus"></i> Register</a>
   </div>
-</nav>
 
-<div class="register d-flex justify-content-center align-items-center vh-200">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6">
-        <div class="card p-4">
-          <img src="assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
-          <h3 class="text-center registercolor">Create an Account</h3>
-
-          <!-- Registration Form -->
-          <form action="register.php" method="POST" id="registerForm" novalidate>
-            <div class="mb-3">
-              <label for="first-name" class="form-label">First Name:</label>
-              <input type="text" class="form-control" name="first_name" id="first-name" required>
-              <div class="invalid-feedback">First name is required.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="middle-name" class="form-label">Middle Name:</label>
-              <input type="text" class="form-control" name="middle_name" id="middle-name">
-            </div>
-
-            <div class="mb-3">
-              <label for="last-name" class="form-label">Last Name:</label>
-              <input type="text" class="form-control" name="last_name" id="last-name" required>
-              <div class="invalid-feedback">Last name is required.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="suffix" class="form-label">Suffix:</label>
-              <input type="text" class="form-control" name="suffix" id="suffix" placeholder="e.g. Jr, Sr, III">
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Email Address:</label>
-              <input type="email" class="form-control" name="email" id="email" required>
-              <div class="invalid-feedback">Please enter a valid email.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Password:</label>
-              <input type="password" class="form-control" name="password" id="password" minlength="6" required>
-              <div class="invalid-feedback">Password must be at least 6 characters long.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="confirm-password" class="form-label">Confirm Password:</label>
-              <input type="password" class="form-control" name="confirm_password" id="confirm-password" required>
-              <div class="invalid-feedback">Passwords must match.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="role" class="form-label">Register as</label>
-              <select class="form-select" name="role" id="role" required>
-                <option value="">Select Role</option>
-                <option value="student">Student</option>
-                <option value="staff">Staff</option>
-                <option value="manager">Canteen Manager</option>
-                <option value="admin">Admin</option>
-              </select>
-              <div class="invalid-feedback">Please select a role.</div>
-            </div>
-
-            <button type="submit" class="btn btn-warning d-block mx-auto registerbtn">Register</button>
-          </form>
-
-          <div class="text-center mt-3">
-            <p>Already have an account? <a href="login.php" class="registercolor">Sign In</a></p>
-          </div>
-        </div>
+  <div class="profile-bar d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+      <img src="assets/img/user_avatar.png" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+      <div>
+        <h6 class="mb-0">Guest</h6>
+        <small class="text-muted">Visitor</small>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Register Section -->
+<div class="register-content">
+  <div class="card">
+    <img src="assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo">
+    <h3>Create an Account</h3>
+    <p>Join SmartCanteen today</p>
+
+    <form action="register.php" method="POST" id="registerForm" novalidate>
+      <div class="row g-2">
+        <div class="col-md-6 mb-3">
+          <label for="first_name" class="form-label text-start w-100">First Name</label>
+          <input type="text" class="form-control" id="first_name" name="first_name" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="middle_name" class="form-label text-start w-100">Middle Name</label>
+          <input type="text" class="form-control" id="middle_name" name="middle_name">
+        </div>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-6 mb-3">
+          <label for="last_name" class="form-label text-start w-100">Last Name</label>
+          <input type="text" class="form-control" id="last_name" name="last_name" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="suffix" class="form-label text-start w-100">Suffix</label>
+          <input type="text" class="form-control" id="suffix" name="suffix" placeholder="Jr, Sr, III">
+        </div>
+      </div>
+
+      <div class="mb-3 text-start">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-6 mb-3">
+          <label for="password" class="form-label text-start w-100">Password</label>
+          <input type="password" class="form-control" id="password" name="password" minlength="6" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="confirm_password" class="form-label text-start w-100">Confirm Password</label>
+          <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+        </div>
+      </div>
+
+      <div class="mb-3 text-start">
+        <label for="role" class="form-label">Register as</label>
+        <select class="form-select" id="role" name="role" required>
+          <option value="">Select Role</option>
+          <option value="Student">Student</option>
+          <option value="Staff">Staff</option>
+          <option value="Manager">Canteen Manager</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-register">Register</button>
+
+      <div class="text-center mt-3">
+        <p>Already have an account? <a href="login.php">Login</a></p>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -148,21 +196,17 @@ $conn->close();
   const form = document.getElementById('registerForm');
 
   form.addEventListener('submit', function (event) {
-    // Password match check
     const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirm-password');
-    
+    const confirmPassword = document.getElementById('confirm_password');
     if (password.value !== confirmPassword.value) {
       confirmPassword.setCustomValidity("Passwords do not match");
     } else {
       confirmPassword.setCustomValidity("");
     }
-
     if (!form.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
     }
-
     form.classList.add('was-validated');
   }, false);
 })();

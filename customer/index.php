@@ -22,11 +22,12 @@ $role       = $_SESSION['role'] ?? 'Customer';
 $menu_sql = "
     SELECT *
     FROM menu
-    WHERE stock > 0
-      AND (availability_start IS NULL OR availability_start <= '$currentTime')
-      AND (availability_end IS NULL OR availability_end >= '$currentTime')
+    WHERE (stock IS NULL OR stock > 0)
+      AND (availability_start IS NULL OR availability_start = '' OR availability_start <= '$currentTime')
+      AND (availability_end IS NULL OR availability_end = '' OR availability_end >= '$currentTime')
     ORDER BY created_at DESC
 ";
+
 $menu_result = $conn->query($menu_sql);
 if ($menu_result === false) die("Error fetching menu: " . $conn->error);
 

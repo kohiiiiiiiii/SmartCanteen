@@ -3,7 +3,7 @@
 ini_set('session.cookie_path', '/');
 session_start();
 
-include 'db.connect.php'; // adjust path if needed
+include 'db.connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
@@ -19,9 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
 
-        // ✅ Verify password
         if (password_verify($password, $user['password'])) {
-
             // ✅ Save session data
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['first_name'] = $user['first_name'];
@@ -30,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['suffix'] = $user['suffix'];
             $_SESSION['role'] = $user['role'];
 
-            // ✅ Remember me
+            // ✅ Remember me cookie
             if ($remember) {
-                setcookie('email', $email, time() + (86400 * 30), "/"); // 30 days
+                setcookie('email', $email, time() + (86400 * 30), "/");
             } else {
                 setcookie('email', '', time() - 3600, "/");
             }

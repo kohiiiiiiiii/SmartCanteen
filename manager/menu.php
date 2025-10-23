@@ -14,7 +14,7 @@ $firstName  = $_SESSION['first_name'] ?? '';
 $middleName = $_SESSION['middle_name'] ?? '';
 $lastName   = $_SESSION['last_name'] ?? '';
 $suffix     = $_SESSION['suffix'] ?? '';
-$role       = $_SESSION['role'] ?? '';
+$role       = $_SESSION['role'] ?? 'manager';
 $fullName = trim($firstName . ($middleName ? " $middleName" : "") . " $lastName" . ($suffix ? " $suffix" : ""));
 
 // Ensure uploads folder exists

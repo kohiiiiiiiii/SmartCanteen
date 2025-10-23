@@ -1,8 +1,17 @@
 <?php
-// ✅ Start session at the very top
-session_start();
+// ✅ Start session at the very top (only once)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // ✅ Include DB connection
 include '../db.connect.php';
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
+    header("Location: ../login.php");
+    exit();
+}
 
 // ✅ Fetch total users
 $userCount = 0;
@@ -37,6 +46,7 @@ $role       = $_SESSION['role'] ?? 'Admin';
 $fullName = trim($firstName . ($middleName ? " $middleName" : "") . " $lastName" . ($suffix ? " $suffix" : ""));
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
