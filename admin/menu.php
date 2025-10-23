@@ -1,28 +1,28 @@
 <?php
 // ✅ Allow session to work across all folders
 session_start();
-
-// ✅ Access control
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
-    header("Location: ../login.php");
-    exit();
-}
 include '../db.connect.php';
-include __DIR__ . '/../includes/menu_functions.php';
+include __DIR__ . '/../includes/menu_functions.php'; // menu functions
 
-// ✅ Verify login
-if (!isset($_SESSION['user_id'])) {
+// Allow both Admin and Manager
+if(!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['Admin','Manager'])){
     header("Location: ../login.php");
     exit();
 }
 
-// ✅ Allow only Admin or Manager roles
-if (!in_array($_SESSION['role'], ['Admin', 'Manager'])) {
-    header("Location: ../login.php");
-    exit();
-}
+// Session variables
+$firstName  = $_SESSION['first_name'] ?? '';
+$middleName = $_SESSION['middle_name'] ?? '';
+$lastName   = $_SESSION['last_name'] ?? '';
+$suffix     = $_SESSION['suffix'] ?? '';
+$role       = $_SESSION['role'] ?? 'manager';
+$fullName = trim($firstName . ($middleName ? " $middleName" : "") . " $lastName" . ($suffix ? " $suffix" : ""));
 
-// Handle CRUD
+// Ensure uploads folder exists
+$uploadDir = "../uploads/";
+if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+// Handle CRUD operations
 if($_SERVER['REQUEST_METHOD']==='POST'){
     if(isset($_POST['delete_menu'])){
         deleteMenuItem($conn, intval($_POST['delete_menu']));
@@ -83,8 +83,8 @@ $menuItems = getMenuItems($conn);
 <div class="sidebar">
   <img src="../assets/img/smartcanteenLogo.png" alt="SmartCanteen logo" class="logo d-block mx-auto">
   <a href="index.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
-  <a href="users.php" class="active"><i class="bi bi-people"></i> Manage Users</a>
-  <a href="menu.php"><i class="bi bi-journal-text"></i> Manage Menu</a>
+  <a href="users.php"><i class="bi bi-people"></i> Manage Users</a>
+  <a href="menu.php" class="active"><i class="bi bi-journal-text"></i> Manage Menu</a>
   <a href="orders.php"><i class="bi bi-receipt"></i> Orders</a>
   
   <div class="profile-bar d-flex justify-content-between align-items-center bg-light rounded shadow-sm">

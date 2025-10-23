@@ -18,13 +18,21 @@ $lastName   = $_SESSION['last_name'] ?? '';
 $suffix     = $_SESSION['suffix'] ?? '';
 $role       = $_SESSION['role'] ?? 'Customer';
 
-// Fetch menu items for customers (stock > 0 and available now)
+// ✅ Fetch menu items available now (based on time and stock)
 $menu_sql = "
     SELECT *
     FROM menu
-    WHERE (stock IS NULL OR stock > 0)
-      AND (availability_start IS NULL OR availability_start = '' OR availability_start <= '$currentTime')
-      AND (availability_end IS NULL OR availability_end = '' OR availability_end >= '$currentTime')
+    WHERE stock > 0
+      AND (
+          availability_start IS NULL 
+          OR availability_start = '' 
+          OR availability_start <= '$currentTime'
+      )
+      AND (
+          availability_end IS NULL 
+          OR availability_end = '' 
+          OR availability_end >= '$currentTime'
+      )
     ORDER BY created_at DESC
 ";
 

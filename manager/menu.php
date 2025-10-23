@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include '../db.connect.php';
 include __DIR__ . '/../includes/menu_functions.php'; // menu functions
 
